@@ -1,0 +1,76 @@
+div.wind_meter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  position: relative;
+  max-height: 300px;
+}
+
+div.needle_circle {
+  width: 10px;
+  height: 10px;
+  background-color: var(--foreground);
+  border-radius: 50%;
+}
+
+div.needle_line {
+  position: absolute;
+  width: 3px;
+  height: 30%;
+  background-color: var(--foreground);
+  transform-origin: bottom center;
+  bottom: 50%;
+  left: 50%;
+  margin-left: -1px;
+  transition: transform 0.5s ease-in-out;
+  z-index: 2;
+}
+
+div.marks {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+}
+
+div.mark {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+}
+
+div.mark_label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: -0.25rem;
+  margin-top: -0.5rem;
+}
+
+div.mark_stick {
+  height: 10px;
+  width: 2px;
+  background-color: var(--foreground);
+}
+
+span.mark_text {
+  font-size: 0.75rem;
+  color: var(--foreground);
+}
+
+span.mark_text_half {
+  color: transparent;
+}

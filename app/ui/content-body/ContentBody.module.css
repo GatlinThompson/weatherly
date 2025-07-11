@@ -1,0 +1,17 @@
+section.content_body {
+  background: var(--secondary);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+div.content_body {
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  background: var(--tertiary);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
