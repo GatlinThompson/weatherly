@@ -1,4 +1,4 @@
-import WeatherForm from "../weather-components/WeatherForm";
+import WeatherForm from "./WeatherForm";
 import styles from "./LandingBlock.module.css";
 
 export default function LandingBlock() {
