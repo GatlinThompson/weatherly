@@ -50,11 +50,13 @@ const WeatherForm = () => {
 
       const data = await response.json();
 
-      const cityOptions: CityOption[] = data.map((item: any) => ({
-        name: item.name,
-        country: item.country,
-        state: item.state,
-      }));
+      const cityOptions: CityOption[] = data.map(
+        (item: { name: string; country: string; state: string }) => ({
+          name: item.name,
+          country: item.country,
+          state: item.state,
+        })
+      );
 
       setSuggestions(cityOptions);
       setShowSuggestions(cityOptions.length > 0);
