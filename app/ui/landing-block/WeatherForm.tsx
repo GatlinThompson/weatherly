@@ -8,6 +8,8 @@ interface CityOption {
   name: string;
   country: string;
   state?: string;
+  lat?: number;
+  lon?: number;
 }
 
 const WeatherForm = () => {
@@ -19,7 +21,26 @@ const WeatherForm = () => {
   const { setWeather } = useWeather();
 
   useEffect(() => {
-    getWeather(city);
+    // On mount, get lat/lon for Salt Lake City and call weather backend
+    const fetchLatLonAndWeather = async () => {
+      try {
+        const geoRes = await fetch(`/api/cities?query=Salt%20Lake%20City%2C%20Utah%2C%20US`);
+        if (!geoRes.ok) throw new Error("Failed to get lat/lon");
+        const geoDataArr = await geoRes.json();
+        if (!geoDataArr || geoDataArr.length === 0) throw new Error("No lat/lon found");
+        const geoData = geoDataArr[0];
+        await getWeather({
+          name: "Salt Lake City, Utah, US",
+          country: geoData.country ?? "",
+          state: geoData.state ?? "",
+          lat: geoData.lat,
+          lon: geoData.lon,
+        });
+      } catch (err) {
+        console.error("Error getting lat/lon for Salt Lake City:", err);
+      }
+    };
+    fetchLatLonAndWeather();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Cleanup timeout on unmount
@@ -51,10 +72,18 @@ const WeatherForm = () => {
       const data = await response.json();
 
       const cityOptions: CityOption[] = data.map(
-        (item: { name: string; country: string; state: string }) => ({
+        (item: {
+          name: string;
+          country: string;
+          state: string;
+          lat: number;
+          lon: number;
+        }) => ({
           name: item.name,
           country: item.country,
           state: item.state,
+          lat: item.lat,
+          lon: item.lon,
         })
       );
 
@@ -79,10 +108,13 @@ const WeatherForm = () => {
     }, 300);
   };
 
-  const getWeather = async (inputCity: string): Promise<void> => {
+  const getWeather = async (inputCity: CityOption): Promise<void> => {
     try {
       const response = await fetch(
-        "/api/weather?city=" + encodeURIComponent(inputCity)
+        "/api/weather?lat=" +
+          encodeURIComponent(inputCity.lat ?? "") +
+          "&lon=" +
+          encodeURIComponent(inputCity.lon ?? "")
       );
 
       if (!response.ok) {
@@ -134,7 +166,7 @@ const WeatherForm = () => {
     setCity(cityName);
     setShowSuggestions(false);
     setSuggestions([]);
-    getWeather(cityName);
+    getWeather(selectedCity);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -146,7 +178,23 @@ const WeatherForm = () => {
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setShowSuggestions(false);
-    await getWeather(city);
+    // Try to find lat/lon for the current city string
+    try {
+      const geoRes = await fetch(`/api/cities?query=${encodeURIComponent(city)}`);
+      if (!geoRes.ok) throw new Error("Failed to get lat/lon");
+      const geoDataArr = await geoRes.json();
+      if (!geoDataArr || geoDataArr.length === 0) throw new Error("No lat/lon found");
+      const geoData = geoDataArr[0];
+      await getWeather({
+        name: city,
+        country: geoData.country ?? "",
+        state: geoData.state ?? "",
+        lat: geoData.lat,
+        lon: geoData.lon,
+      });
+    } catch (err) {
+      console.error("Error getting lat/lon for city:", err);
+    }
   };
 
   return (

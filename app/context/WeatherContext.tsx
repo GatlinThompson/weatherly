@@ -13,6 +13,7 @@ export type WeatherData = {
   maxTemp: number;
   minTemp: number;
   feelsLike: number;
+  precipitation?: number;
 };
 
 interface WeatherContextType {

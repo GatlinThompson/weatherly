@@ -1,12 +1,13 @@
 export async function GET(req: Request): Promise<Response> {
   try {
     const { searchParams } = new URL(req.url);
-    const city = searchParams.get("city");
+    const lat = searchParams.get("lat");
+    const lon = searchParams.get("lon");
 
     // Validate required parameters
-    if (!city) {
+    if (!lat || !lon) {
       return new Response(
-        JSON.stringify({ error: "City parameter is required" }),
+        JSON.stringify({ error: "Lat/Lon parameters are required" }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
@@ -29,9 +30,8 @@ export async function GET(req: Request): Promise<Response> {
     }
 
     // Fetch weather data from OpenWeatherMap API
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
-      city
-    )}&appid=${apiKey}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
+
     const response = await fetch(url);
 
     if (!response.ok) {
