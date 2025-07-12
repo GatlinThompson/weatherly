@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useWeather } from "../../context/WeatherContext";
 import { MapPinIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import DewPoint from "../weather-components/humidity/DewPoint";
 
 interface CityOption {
   name: string;
