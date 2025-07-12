@@ -61,6 +61,9 @@ export default function WindMeter() {
           }}
         ></div>
       </div>
+      <div className="absolute bottom-0">
+        <span className="text-md font-bold">MPH</span>
+      </div>
     </div>
   );
 }

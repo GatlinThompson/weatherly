@@ -10,7 +10,7 @@ const MeterBox = ({
   const image_file = title.toLowerCase().replace(" ", "-") + ".svg";
 
   return (
-    <div className="bg-primary rounded-xl p-4 shadow-xl w-full border-foreground border-3">
+    <div className="bg-primary rounded-xl p-3 shadow-xl w-full border-foreground border-3">
       <div className="flex flex-row align-end gap-1 ">
         <Image
           src={`/${image_file}`}

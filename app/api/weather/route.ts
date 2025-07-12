@@ -29,28 +29,42 @@ export async function GET(req: Request): Promise<Response> {
       );
     }
 
-    // Fetch weather data from OpenWeatherMap API
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "accept-encoding": "deflate, gzip, br",
+      },
+    };
 
-    const response = await fetch(url);
+    const forecastResponse = await fetch(
+      `https://api.tomorrow.io/v4/weather/forecast?location=${lat},${lon}&units=imperial&apikey=${process.env.NEXT_TOMMORROW_API_KEY}`,
+      options
+    );
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+    if (!forecastResponse.ok) {
+      const errorData = await forecastResponse.json().catch(() => ({}));
       return new Response(JSON.stringify(errorData), {
-        status: response.status,
+        status: forecastResponse.status,
         headers: { "Content-Type": "application/json" },
       });
     }
 
-    const data = await response.json();
+    const forecastData = await forecastResponse.json();
 
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=300", // Cache for 5 minutes
-      },
-    });
+    return new Response(
+      JSON.stringify({
+        current: forecastData.timelines.minutely[0].values,
+        forecast: forecastData.timelines.daily,
+      }),
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=300", // Cache for 5 minutes
+        },
+      }
+    );
   } catch (error) {
     console.error("Weather API error:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), {

@@ -3,17 +3,18 @@
 import React, { createContext, useContext, useState } from "react";
 
 export type WeatherData = {
-  city: string;
+  DewPoint: number;
   temperature: number;
   windSpeed: number;
   windDirection: number;
   windGust: number;
   humidity: number;
-  weather: string;
+  weather: number;
   maxTemp: number;
   minTemp: number;
   feelsLike: number;
   precipitation?: number;
+  cloudCover?: number;
 };
 
 interface WeatherContextType {

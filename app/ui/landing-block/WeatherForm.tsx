@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useWeather } from "../../context/WeatherContext";
 import { MapPinIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import DewPoint from "../weather-components/humidity/DewPoint";
 
 interface CityOption {
   name: string;
@@ -24,10 +25,13 @@ const WeatherForm = () => {
     // On mount, get lat/lon for Salt Lake City and call weather backend
     const fetchLatLonAndWeather = async () => {
       try {
-        const geoRes = await fetch(`/api/cities?query=Salt%20Lake%20City%2C%20Utah%2C%20US`);
+        const geoRes = await fetch(
+          `/api/cities?query=Salt%20Lake%20City%2C%20Utah%2C%20US`
+        );
         if (!geoRes.ok) throw new Error("Failed to get lat/lon");
         const geoDataArr = await geoRes.json();
-        if (!geoDataArr || geoDataArr.length === 0) throw new Error("No lat/lon found");
+        if (!geoDataArr || geoDataArr.length === 0)
+          throw new Error("No lat/lon found");
         const geoData = geoDataArr[0];
         await getWeather({
           name: "Salt Lake City, Utah, US",
@@ -131,21 +135,24 @@ const WeatherForm = () => {
 
       console.log(weatherData);
 
-      if (!weatherData.main || !weatherData.weather?.[0]) {
+      if (!weatherData) {
         throw new Error("Invalid weather data received");
       }
 
       const weather = {
-        city: weatherData.name,
-        temperature: weatherData.main.temp,
-        windSpeed: weatherData.wind.speed,
-        windDirection: weatherData.wind.deg,
-        windGust: weatherData.wind.gust,
-        humidity: weatherData.main.humidity,
-        weather: weatherData.weather[0].main,
-        maxTemp: weatherData.main.temp_max,
-        minTemp: weatherData.main.temp_min,
-        feelsLike: weatherData.main.feels_like,
+        city: weatherData.current.city,
+        temperature: weatherData.current.temperature,
+        windSpeed: weatherData.current.windSpeed,
+        windDirection: weatherData.current.windDirection,
+        windGust: weatherData.current.windGust,
+        DewPoint: weatherData.current.dewPoint,
+        humidity: weatherData.current.humidity,
+        precipitation: weatherData.current.precipitationProbability,
+        cloudCover: weatherData.current.cloudCover,
+        weather: weatherData.current.weatherCode,
+        maxTemp: weatherData.current.maxTemp,
+        minTemp: weatherData.current.minTemp,
+        feelsLike: weatherData.current.feelsLike,
       };
 
       console.log(weather);
@@ -180,10 +187,13 @@ const WeatherForm = () => {
     setShowSuggestions(false);
     // Try to find lat/lon for the current city string
     try {
-      const geoRes = await fetch(`/api/cities?query=${encodeURIComponent(city)}`);
+      const geoRes = await fetch(
+        `/api/cities?query=${encodeURIComponent(city)}`
+      );
       if (!geoRes.ok) throw new Error("Failed to get lat/lon");
       const geoDataArr = await geoRes.json();
-      if (!geoDataArr || geoDataArr.length === 0) throw new Error("No lat/lon found");
+      if (!geoDataArr || geoDataArr.length === 0)
+        throw new Error("No lat/lon found");
       const geoData = geoDataArr[0];
       await getWeather({
         name: city,

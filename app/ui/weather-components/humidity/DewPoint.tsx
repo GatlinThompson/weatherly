@@ -22,16 +22,15 @@ const DewPoint = () => {
   const maxSteps = 10; // minimum number of steps for smooth animation
 
   useEffect(() => {
-    const temp = weather?.temperature ?? 0;
-    const humidity = weather?.humidity ?? 0;
+    setDewPointValue(weather?.DewPoint ?? 0);
 
     // Convert Kelvin to Celsius for dew point calculation
 
-    const dewPoint = calculateDewPoint(temp, humidity);
+    //const dewPoint = calculateDewPoint(temp, humidity);
     // Convert Celsius to Fahrenheit
 
     // Set to 0 if NaN
-    setDewPointValue(isNaN(dewPoint) ? 0 : dewPoint);
+    //setDewPointValue(isNaN(dewPoint) ? 0 : dewPoint);
   }, [weather]);
 
   useEffect(() => {
@@ -60,7 +59,7 @@ const DewPoint = () => {
     };
   }, [dewPointValue]);
 
-  return <>{tempDewPoint}&deg;F</>;
+  return <>{dewPointValue}&deg;F</>;
 };
 
 export default DewPoint;
