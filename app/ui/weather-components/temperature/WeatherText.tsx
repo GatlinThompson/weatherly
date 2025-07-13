@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useWeather } from "../../../context/WeatherContext";
-import { weatherCode } from "../../../../utils/weatherCodes";
+import { weatherCode } from "../../../utils/WeatherCodes";
 
 const WeatherText = () => {
   const [text, setText] = useState<string>("Clear");
-
   const { weather } = useWeather();
 
   useEffect(() => {
-    setText(weatherCode[weather?.weather.toString() ?? "1000"]);
+    const code = weather?.weather?.toString() ?? "1000";
+    const description =
+      (weatherCode as Record<string, string>)[code] || "Unknown";
+    setText(description);
   }, [weather]);
 
   return <>{text}</>;
