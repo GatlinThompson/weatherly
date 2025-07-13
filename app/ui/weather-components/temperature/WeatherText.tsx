@@ -13,10 +13,6 @@ const WeatherText = () => {
     setText(weatherCode[weather?.weather.toString() ?? "1000"]);
   }, [weather]);
 
-  //   useEffect(() => {
-  //     setText(weatherCode[weatherText]);
-  //   }, [weatherText]);
-
   return <>{text}</>;
 };
 
