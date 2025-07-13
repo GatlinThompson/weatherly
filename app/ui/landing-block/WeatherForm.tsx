@@ -218,6 +218,7 @@ const WeatherForm = () => {
             type="text"
             name="city"
             placeholder="City..."
+            aria-label="City"
             value={city}
             className="text-xl outline-none flex-grow md:text-2xl bg-transparent"
             onChange={handleInputChange}
@@ -231,7 +232,7 @@ const WeatherForm = () => {
           {isSearching && (
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
           )}
-          <button type="submit" className="text-primary">
+          <button type="submit" className="text-primary" aria-label="Search">
             <ChevronRightIcon className="h-6 w-6 text-primary md:h-8 md:w-8" />
           </button>
         </div>
