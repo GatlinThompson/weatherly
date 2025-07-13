@@ -10,6 +10,9 @@ export type WeatherData = {
   windGust: number;
   humidity: number;
   weather: number;
+  uvIndex: number;
+  uvIndexMax: number;
+  uvIndexMin: number;
   maxTemp: number;
   minTemp: number;
   feelsLike: number;

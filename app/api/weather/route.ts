@@ -55,7 +55,7 @@ export async function GET(req: Request): Promise<Response> {
     return new Response(
       JSON.stringify({
         current: forecastData.timelines.minutely[0].values,
-        forecast: forecastData.timelines.daily,
+        forecast: forecastData.timelines,
       }),
       {
         status: 200,
