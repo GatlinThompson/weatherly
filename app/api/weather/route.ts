@@ -52,12 +52,12 @@ export async function GET(req: Request): Promise<Response> {
 
     const forecastData = await forecastResponse.json();
 
-    const uvIndexData = forecastData.timelines.hourly.map(
-      (item: { time: string; values: { uvIndex: number } }) => ({
-        time: new Date(item.time),
+    const uvIndexData = forecastData.timelines.hourly
+      .slice(0, 24)
+      .map((item: { time: string; values: { uvIndex: number } }) => ({
+        time: new Date(item.time).toLocaleString(),
         uvIndex: item.values.uvIndex,
-      })
-    );
+      }));
 
     const dailyWeather = forecastData.timelines.daily[0].values;
 
@@ -79,6 +79,7 @@ export async function GET(req: Request): Promise<Response> {
         current: todayWeather.uvIndex,
         max: dailyWeather.uvIndexMax,
         min: dailyWeather.uvIndexMin,
+        hourly: uvIndexData,
       },
       dewPoint: todayWeather.dewPoint,
       humidity: todayWeather.humidity,
