@@ -2,6 +2,7 @@ import WindSpeed from "../weather-components/wind_speed/WindSpeed";
 import styles from "./ContentBody.module.css";
 import Humidity from "../weather-components/humidity/Humidity";
 import Precipitation from "../weather-components/precipitation/Precipitation";
+import UVIndex from "../weather-components/uv_index/UVIndex";
 
 export default function ContentBody() {
   return (
@@ -14,6 +15,9 @@ export default function ContentBody() {
           <div className=" flex flex-row gap-5">
             <Humidity />
             <Precipitation />
+          </div>
+          <div className=" flex flex-row gap-5">
+            <UVIndex />
           </div>
         </div>
       </div>

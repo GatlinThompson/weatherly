@@ -14,7 +14,7 @@ const TemperatureNum = () => {
   const maxSteps = 5; // minimum number of steps for smooth animation
 
   useEffect(() => {
-    setTemp(weather?.temperature ?? 0);
+    setTemp(weather?.temperature?.now ?? 0);
     setPreviousTemp(temp);
   }, [weather]);
 

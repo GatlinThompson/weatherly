@@ -9,7 +9,7 @@ const WeatherText = () => {
   const { weather } = useWeather();
 
   useEffect(() => {
-    const code = weather?.weather?.toString() ?? "1000";
+    const code = weather?.weatherCode?.toString() ?? "1000";
     const description =
       (weatherCode as Record<string, string>)[code] || "Unknown";
     setText(description);

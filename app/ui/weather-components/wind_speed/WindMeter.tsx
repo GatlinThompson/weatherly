@@ -9,7 +9,7 @@ export default function WindMeter() {
   const [windSpeed, setWindSpeed] = useState(0);
 
   useEffect(() => {
-    setWindSpeed(Math.round(weather?.windSpeed ?? 0));
+    setWindSpeed(Math.round(weather?.wind.speed ?? 0));
   }, [weather]);
 
   // Calculate needle rotation (0-60 mph range, -135 to 135 degrees, then up to 270)

@@ -9,7 +9,7 @@ const MaxTemp = () => {
   const [tempMaxTemp, setTempMaxTemp] = useState<number>(0);
 
   useEffect(() => {
-    setTemp(weather?.maxTemp ?? 0);
+    setTemp(weather?.temperature?.max ?? 0);
   }, [weather]);
 
   //animation

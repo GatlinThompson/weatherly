@@ -52,9 +52,44 @@ export async function GET(req: Request): Promise<Response> {
 
     const forecastData = await forecastResponse.json();
 
+    const uvIndexData = forecastData.timelines.hourly.map(
+      (item: { time: string; values: { uvIndex: number } }) => ({
+        time: new Date(item.time),
+        uvIndex: item.values.uvIndex,
+      })
+    );
+
+    const dailyWeather = forecastData.timelines.daily[0].values;
+
+    const todayWeather = forecastData.timelines.minutely[0].values;
+
+    const today = {
+      temperature: {
+        now: todayWeather.temperature,
+        apparent: todayWeather.temperatureApparent,
+        min: dailyWeather.temperatureMin,
+        max: dailyWeather.temperatureMax,
+      },
+      wind: {
+        speed: todayWeather.windSpeed,
+        direction: todayWeather.windDirection,
+        gust: todayWeather.windGust,
+      },
+      uvIndex: {
+        current: todayWeather.uvIndex,
+        max: dailyWeather.uvIndexMax,
+        min: dailyWeather.uvIndexMin,
+      },
+      dewPoint: todayWeather.dewPoint,
+      humidity: todayWeather.humidity,
+      precipitation: todayWeather.precipitationProbability,
+      cloudCover: todayWeather.cloudCover,
+      weatherCode: todayWeather.weatherCode,
+    };
+
     return new Response(
       JSON.stringify({
-        current: forecastData.timelines.minutely[0].values,
+        current: today,
         forecast: forecastData.timelines,
       }),
       {

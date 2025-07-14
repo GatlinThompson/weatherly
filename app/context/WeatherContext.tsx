@@ -3,21 +3,27 @@
 import React, { createContext, useContext, useState } from "react";
 
 export type WeatherData = {
+  temperature: {
+    now: number;
+    apparent: number;
+    min: number;
+    max: number;
+  };
+  wind: {
+    speed: number;
+    direction: number;
+    gust: number;
+  };
+  uvIndex: {
+    current: number;
+    max: number;
+    min: number;
+  };
   dewPoint: number;
-  temperature: number;
-  windSpeed: number;
-  windDirection: number;
-  windGust: number;
   humidity: number;
-  weather: number;
-  uvIndex: number;
-  uvIndexMax: number;
-  uvIndexMin: number;
-  maxTemp: number;
-  minTemp: number;
-  feelsLike: number;
-  precipitation?: number;
-  cloudCover?: number;
+  precipitation: number;
+  cloudCover: number;
+  weatherCode: number;
 };
 
 interface WeatherContextType {

@@ -8,7 +8,7 @@ const WindGust = () => {
   const [windGust, setWindGust] = useState<number>(0);
 
   useEffect(() => {
-    setWindGust(Math.round(weather?.windGust ?? 0));
+    setWindGust(Math.round(weather?.wind.gust ?? 0));
   }, [weather]);
 
   return <>{windGust}</>;

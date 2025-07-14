@@ -21,7 +21,7 @@ const WindDirection = () => {
   };
 
   useEffect(() => {
-    const degrees = Math.round(weather?.windDirection ?? 0);
+    const degrees = Math.round(weather?.wind.direction ?? 0);
     setCompassDirection(degreesToCompass(degrees));
   }, [weather]);
 

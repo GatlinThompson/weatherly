@@ -9,7 +9,7 @@ const MinTemp = () => {
   const [tempMinTemp, setTempMinTemp] = useState<number>(0);
 
   useEffect(() => {
-    setTemp(weather?.minTemp ?? 0);
+    setTemp(weather?.temperature?.min ?? 0);
   }, [weather]);
 
   //animation

@@ -29,6 +29,8 @@ const WeatherForm = () => {
         );
         if (!geoRes.ok) throw new Error("Failed to get lat/lon");
         const geoDataArr = await geoRes.json();
+
+        console.log(geoDataArr);
         if (!geoDataArr || geoDataArr.length === 0)
           throw new Error("No lat/lon found");
         const geoData = geoDataArr[0];
@@ -73,6 +75,8 @@ const WeatherForm = () => {
       }
 
       const data = await response.json();
+
+      console.log(data);
 
       const cityOptions: CityOption[] = data.map(
         (item: {
@@ -138,28 +142,18 @@ const WeatherForm = () => {
         throw new Error("Invalid weather data received");
       }
 
-      const weather = {
-        city: weatherData.current.city,
-        temperature: weatherData.current.temperature,
-        windSpeed: weatherData.current.windSpeed,
-        windDirection: weatherData.current.windDirection,
-        windGust: weatherData.current.windGust,
-        DewPoint: weatherData.current.dewPoint,
-        humidity: weatherData.current.humidity,
-        precipitation: weatherData.current.precipitationProbability,
-        cloudCover: weatherData.current.cloudCover,
-        weather: weatherData.current.weatherCode,
-        uvIndex: weatherData.current.uvIndex,
-        uvIndexMax: weatherData.forecast.daily[0].uvIndexMax,
-        uvIndexMin: weatherData.forecast.daily[0].uvIndexMin,
-        maxTemp: weatherData.forecast.daily[0].values.temperatureMax,
-        minTemp: weatherData.forecast.daily[0].values.temperatureMin,
-        feelsLike: weatherData.current.temperatureApparent,
-      };
+      const uvIndexData = weatherData.forecast.hourly.map(
+        (item: { time: string; values: { uvIndex: number } }) => ({
+          time: new Date(item.time),
+          uvIndex: item.values.uvIndex,
+        })
+      );
 
-      console.log(weather);
+      const today = weatherData.current;
 
-      setWeather(weather);
+      console.log(weatherData.current);
+
+      setWeather(weatherData.current);
     } catch (error) {
       console.error("Error fetching weather:", error);
       // Could add user-facing error handling here
