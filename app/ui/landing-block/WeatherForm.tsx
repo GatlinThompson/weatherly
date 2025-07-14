@@ -152,8 +152,8 @@ const WeatherForm = () => {
         uvIndex: weatherData.current.uvIndex,
         uvIndexMax: weatherData.forecast.daily[0].uvIndexMax,
         uvIndexMin: weatherData.forecast.daily[0].uvIndexMin,
-        maxTemp: weatherData.forecast.daily[0].temperatureMax,
-        minTemp: weatherData.forecast.daily[0].temperatureMin,
+        maxTemp: weatherData.forecast.daily[0].values.temperatureMax,
+        minTemp: weatherData.forecast.daily[0].values.temperatureMin,
         feelsLike: weatherData.current.temperatureApparent,
       };
 
