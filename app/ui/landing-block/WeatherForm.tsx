@@ -211,7 +211,10 @@ const WeatherForm = () => {
 
   return (
     <div className="relative">
-      <form onSubmit={handleSubmit} className="flex flex-row gap-4 w-full">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-row gap-4 w-full lg:w-1/2 md:w-3/4 mx-auto"
+      >
         <div className="flex flex-row gap-2 bg-foreground rounded-xl text-primary p-4 shadow-lg flex-1 w-full">
           <MapPinIcon className="h-6 w-6 text-primary md:h-8 md:w-8" />
           <input

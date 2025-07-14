@@ -13,7 +13,7 @@ const DewPoint = () => {
   const maxSteps = 10; // minimum number of steps for smooth animation
 
   useEffect(() => {
-    setDewPointValue(weather?.DewPoint ?? 0);
+    setDewPointValue(weather?.dewPoint ?? 0);
   }, [weather]);
 
   useEffect(() => {

@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState } from "react";
 
 export type WeatherData = {
-  DewPoint: number;
+  dewPoint: number;
   temperature: number;
   windSpeed: number;
   windDirection: number;
