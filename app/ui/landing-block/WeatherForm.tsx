@@ -142,15 +142,6 @@ const WeatherForm = () => {
         throw new Error("Invalid weather data received");
       }
 
-      const uvIndexData = weatherData.forecast.hourly.map(
-        (item: { time: string; values: { uvIndex: number } }) => ({
-          time: new Date(item.time),
-          uvIndex: item.values.uvIndex,
-        })
-      );
-
-      const today = weatherData.current;
-
       console.log(weatherData.current);
 
       setWeather(weatherData.current);
