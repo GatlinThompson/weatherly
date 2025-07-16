@@ -54,10 +54,18 @@ export async function GET(req: Request): Promise<Response> {
 
     const uvIndexData = forecastData.timelines.hourly
       .slice(0, 24)
-      .map((item: { time: string; values: { uvIndex: number } }) => ({
-        time: new Date(item.time).toLocaleString(),
-        uvIndex: item.values.uvIndex,
-      }));
+      .map((item: { time: string; values: { uvIndex: number } }) => {
+        const date = new Date(item.time);
+        // Format as local time string (e.g., 9:00 PM)
+        const time = date.toLocaleTimeString([], {
+          hour: "numeric",
+          hour12: true,
+        });
+        return {
+          time,
+          uvIndex: item.values.uvIndex,
+        };
+      });
 
     const dailyWeather = forecastData.timelines.daily[0].values;
 

@@ -18,6 +18,7 @@ export type WeatherData = {
     current: number;
     max: number;
     min: number;
+    hourly: { time: string; uvIndex: number }[];
   };
   dewPoint: number;
   humidity: number;
