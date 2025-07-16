@@ -37,7 +37,7 @@ const TemperatureNum = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [temp]); // Add previousTemp to the dependency array
+  }, [temp, previousTemp]); // Add previousTemp to the dependency array
 
   return <>{tempTemperature}&deg;F</>;
 };
