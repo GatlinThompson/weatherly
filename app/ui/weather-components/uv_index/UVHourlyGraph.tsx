@@ -25,6 +25,7 @@ ChartJS.register(
 );
 
 const UVHourlyGraph = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chartRef = useRef<any>(null);
   const { weather } = useWeather();
 
@@ -41,7 +42,9 @@ const UVHourlyGraph = () => {
       {
         label: "UV Index",
         data: dataPoints,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         borderColor: (ctx: any) => {
+          console.log(ctx);
           const chart = ctx.chart;
           const { ctx: canvasCtx, chartArea } = chart;
 
@@ -77,7 +80,12 @@ const UVHourlyGraph = () => {
         grid: { display: false },
         ticks: {
           autoSkip: false,
-          callback: function (tickValue: any, index: number, ticks: any) {
+          callback: function (
+            tickValue: number,
+            index: number,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ticks: any
+          ) {
             if (
               index === 0 ||
               index === Math.floor((ticks.length - 1) / 2) ||
