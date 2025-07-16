@@ -13,7 +13,7 @@ const WindMPH = () => {
   const maxSteps = 20; // minimum number of steps for smooth animation
 
   useEffect(() => {
-    setWindSpeed(Math.round(weather?.windSpeed ?? 0));
+    setWindSpeed(Math.round(weather?.wind.speed ?? 0));
   }, [weather]);
 
   useEffect(() => {
