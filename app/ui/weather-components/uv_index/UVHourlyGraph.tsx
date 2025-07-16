@@ -1,8 +1,7 @@
 "use client";
 
-import { Line } from "react-chartjs-2";
 import {
-  Chart,
+  Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -11,9 +10,11 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { Line } from "react-chartjs-2";
+import { useRef } from "react";
 import { useWeather } from "../../../context/WeatherContext";
 
-Chart.register(
+ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
@@ -24,9 +25,12 @@ Chart.register(
 );
 
 const UVHourlyGraph = () => {
+  const chartRef = useRef<any>(null);
   const { weather } = useWeather();
-  // weather.uvIndex.hourly = [{ time: string, uvIndex: number }, ...]
+
   const hourly = weather?.uvIndex?.hourly ?? [];
+
+  if (!hourly.length) return <div className="text-center">Loading...</div>;
 
   const labels = hourly.map((h) => h.time);
   const dataPoints = hourly.map((h) => h.uvIndex);
@@ -37,8 +41,24 @@ const UVHourlyGraph = () => {
       {
         label: "UV Index",
         data: dataPoints,
-        borderColor: "#ffff",
-        backgroundColor: "rgba(221, 162, 11, 0.2)",
+        borderColor: (ctx: any) => {
+          const chart = ctx.chart;
+          const { ctx: canvasCtx, chartArea } = chart;
+
+          if (!chartArea) return "red"; // avoid undefined on first render
+
+          const gradient = canvasCtx.createLinearGradient(
+            0,
+            chartArea.top,
+            0,
+            chartArea.bottom
+          );
+          gradient.addColorStop(0.1, "red");
+          gradient.addColorStop(0.5, "yellow");
+          gradient.addColorStop(1, "limegreen");
+          return gradient;
+        },
+        backgroundColor: "rgba(255, 255, 0, 0.2)",
         tension: 0.2,
         fill: true,
       },
@@ -57,21 +77,13 @@ const UVHourlyGraph = () => {
         grid: { display: false },
         ticks: {
           autoSkip: false,
-          callback: function (
-            tickValue: string | number,
-            index: number,
-            ticks: any
-          ) {
-            // Only show first, middle, and last label
-            if (typeof index === "number" && ticks && Array.isArray(ticks)) {
-              if (
-                index === 0 ||
-                index === Math.floor((ticks.length - 1) / 2) ||
-                index === ticks.length - 1
-              ) {
-                // fallback to tickValue if label is missing
-                return labels[index] || tickValue;
-              }
+          callback: function (tickValue: any, index: number, ticks: any) {
+            if (
+              index === 0 ||
+              index === Math.floor((ticks.length - 1) / 2) ||
+              index === ticks.length - 1
+            ) {
+              return labels[index];
             }
             return "";
           },
@@ -94,9 +106,7 @@ const UVHourlyGraph = () => {
     },
   };
 
-  if (!hourly.length) return <div className="text-center">Loading...</div>;
-
-  return <Line data={data} options={options} />;
+  return <Line ref={chartRef} data={data} options={options} />;
 };
 
 export default UVHourlyGraph;
