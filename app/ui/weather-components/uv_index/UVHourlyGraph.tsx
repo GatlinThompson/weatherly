@@ -32,7 +32,13 @@ const UVHourlyGraph = () => {
 
   if (!hourly.length) return <div className="text-center">Loading...</div>;
 
-  const labels = hourly.map((h) => h.time);
+  const labels = hourly.map((h) => {
+    const date = new Date(h.time);
+    return date.toLocaleTimeString([], {
+      hour: "numeric",
+      hour12: true,
+    });
+  });
   const dataPoints = hourly.map((h) => h.uvIndex);
 
   const data = {
