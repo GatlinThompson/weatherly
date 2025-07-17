@@ -7,7 +7,9 @@ const MeterBox = ({
   children: React.ReactNode;
   title: string;
 }) => {
-  const image_file = title.toLowerCase().replace(" ", "-") + ".svg";
+  const image_file =
+    title.toLowerCase().replace(" ", "-").replace("&", "").replace(" ", "") +
+    ".svg";
 
   return (
     <div className="bg-primary rounded-xl p-3 shadow-xl w-full border-foreground border-3">
@@ -17,7 +19,6 @@ const MeterBox = ({
           alt={`${title} Icon`}
           width={24}
           height={24}
-          style={{ width: "auto", height: "auto" }}
         />
         <p className="font-bold text-xl mb-0">{title}</p>
       </div>

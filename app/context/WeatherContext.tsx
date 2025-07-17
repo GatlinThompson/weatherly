@@ -20,6 +20,16 @@ export type WeatherData = {
     min: number;
     hourly: { time: string; uvIndex: number }[];
   };
+  sun: {
+    rise: Date;
+    set: Date;
+  };
+  moon: {
+    phase: string;
+    illumination: number;
+    rise: Date;
+    set: Date;
+  };
   dewPoint: number;
   humidity: number;
   precipitation: number;

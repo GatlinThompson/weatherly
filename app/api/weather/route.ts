@@ -1,5 +1,7 @@
+// Import required modules and configuration
 export async function GET(req: Request): Promise<Response> {
   try {
+    // Parse query parameters
     const { searchParams } = new URL(req.url);
     const lat = searchParams.get("lat");
     const lon = searchParams.get("lon");
@@ -29,6 +31,7 @@ export async function GET(req: Request): Promise<Response> {
       );
     }
 
+    // Set request options
     const options = {
       method: "GET",
       headers: {
@@ -37,6 +40,7 @@ export async function GET(req: Request): Promise<Response> {
       },
     };
 
+    // Get forecast data
     const forecastResponse = await fetch(
       `https://api.tomorrow.io/v4/weather/forecast?location=${lat},${lon}&units=imperial&apikey=${process.env.NEXT_TOMMORROW_API_KEY}`,
       options
@@ -52,6 +56,7 @@ export async function GET(req: Request): Promise<Response> {
 
     const forecastData = await forecastResponse.json();
 
+    // Get uv index data
     const uvIndexData = forecastData.timelines.hourly
       .slice(0, 24)
       .map((item: { time: string; values: { uvIndex: number } }) => {
@@ -61,10 +66,28 @@ export async function GET(req: Request): Promise<Response> {
         };
       });
 
+    // Get moon data
+    const timestamp = Math.floor(Date.now() / 1000);
+
+    const moonReponse = await fetch(
+      `https://api.farmsense.net/v1/moonphases/?d=${timestamp}`
+    );
+
+    if (!moonReponse.ok) {
+      const errorData = await moonReponse.json().catch(() => ({}));
+      return new Response(JSON.stringify(errorData), {
+        status: moonReponse.status,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const moonData = await moonReponse.json();
+
     const dailyWeather = forecastData.timelines.daily[0].values;
 
     const todayWeather = forecastData.timelines.minutely[0].values;
 
+    // Build response data
     const today = {
       temperature: {
         now: todayWeather.temperature,
@@ -82,6 +105,16 @@ export async function GET(req: Request): Promise<Response> {
         max: dailyWeather.uvIndexMax,
         min: dailyWeather.uvIndexMin,
         hourly: uvIndexData,
+      },
+      sunset: {
+        rise: dailyWeather.sunriseTime,
+        set: dailyWeather.sunsetTime,
+      },
+      moon: {
+        phase: moonData[0].Phase,
+        illumination: moonData[0].Illumination,
+        rise: dailyWeather.moonriseTime,
+        set: dailyWeather.moonsetTime,
       },
       dewPoint: todayWeather.dewPoint,
       humidity: todayWeather.humidity,

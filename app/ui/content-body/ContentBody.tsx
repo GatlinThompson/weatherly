@@ -3,6 +3,7 @@ import styles from "./ContentBody.module.css";
 import Humidity from "../weather-components/humidity/Humidity";
 import Precipitation from "../weather-components/precipitation/Precipitation";
 import UVIndex from "../weather-components/uv_index/UVIndex";
+import SunMoon from "../weather-components/sun_moon/SunMoon";
 
 export default function ContentBody() {
   return (
@@ -18,6 +19,9 @@ export default function ContentBody() {
           </div>
           <div className=" flex flex-row gap-5">
             <UVIndex />
+          </div>
+          <div className=" flex flex-row gap-5">
+            <SunMoon />
           </div>
         </div>
       </div>
