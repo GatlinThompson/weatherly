@@ -17,7 +17,7 @@ const MeterBox = ({
   }
 
   return (
-    <div className="bg-quaternary rounded-xl p-3 shadow-2xl w-full border-foreground border-1">
+    <div className="bg-quaternary rounded-xl py-4 px-1 shadow-2xl w-full border-foreground border-1">
       {!weather ? (
         <div className="flex flex-row align-end gap-1 ">
           <Image

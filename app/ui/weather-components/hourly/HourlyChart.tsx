@@ -44,7 +44,7 @@ const HourlyChart = () => {
 
   return (
     <>
-      <div className="flex justify-between mt-2">
+      <div className="flex justify-between mt-2 lg:mt-0">
         {canScrollLeft ? (
           <button
             onClick={scrollLeft}
@@ -60,7 +60,7 @@ const HourlyChart = () => {
       <div
         ref={containerRef}
         onScroll={updateScrollButtons}
-        className={`flex flex-row overflow-x-auto scrollbar-hide snap-x snap-proximity ${styles.hourly_chart} gap-3 mb-1 mt-2 px-4`}
+        className={`flex flex-row overflow-x-auto scrollbar-hide snap-x snap-proximity ${styles.hourly_chart} gap-3 mb-1 mt-2 lg:mb-0 lg:mt-0 px-4`}
       >
         {hourly.length ? (
           hourly.map((h) => (
@@ -96,7 +96,7 @@ const HourlyChart = () => {
         )}
       </div>
 
-      <div className="flex justify-between mt-2">
+      <div className="flex justify-between mt-2 lg:mt-0">
         {canScrollRight ? (
           <button
             onClick={scrollRight}
