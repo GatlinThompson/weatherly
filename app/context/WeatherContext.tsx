@@ -35,6 +35,7 @@ export type WeatherData = {
   precipitation: number;
   cloudCover: number;
   weatherCode: number;
+  hourly: { time: string; temperature: number; weatherCode: number }[];
 };
 
 interface WeatherContextType {

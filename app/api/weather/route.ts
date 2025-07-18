@@ -121,6 +121,20 @@ export async function GET(req: Request): Promise<Response> {
       precipitation: todayWeather.precipitationProbability,
       cloudCover: todayWeather.cloudCover,
       weatherCode: todayWeather.weatherCode,
+      hourly: forecastData.timelines.hourly
+        .map(
+          (item: {
+            time: string;
+            values: { temperature: number; weatherCode: number };
+          }) => {
+            return {
+              time: item.time,
+              temperature: item.values.temperature,
+              weatherCode: item.values.weatherCode,
+            };
+          }
+        )
+        .slice(0, 24),
     };
 
     return new Response(

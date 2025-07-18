@@ -1,0 +1,13 @@
+div.hourly_object {
+  min-width: 100px;
+}
+
+div.hourly_chart {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+div.hourly_chart::-webkit-scrollbar {
+  display: none;
+}

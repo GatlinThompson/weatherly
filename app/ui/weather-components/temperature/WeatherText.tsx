@@ -5,7 +5,7 @@ import { useWeather } from "../../../context/WeatherContext";
 import { weatherCode } from "../../../utils/WeatherCodes";
 
 const WeatherText = () => {
-  const [text, setText] = useState<string>("Clear");
+  const [text, setText] = useState<string>("Sunny");
   const { weather } = useWeather();
 
   useEffect(() => {

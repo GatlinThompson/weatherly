@@ -200,8 +200,8 @@ const WeatherForm = () => {
         onSubmit={handleSubmit}
         className="flex flex-row gap-4 w-full lg:w-1/2 md:w-3/4 mx-auto"
       >
-        <div className="flex flex-row gap-2 bg-foreground rounded-xl text-primary p-4 shadow-lg flex-1 w-full">
-          <MapPinIcon className="h-6 w-6 text-primary md:h-8 md:w-8" />
+        <div className="flex flex-row gap-2 bg-foreground rounded-xl text-quaternary p-4 shadow-lg flex-1 w-full">
+          <MapPinIcon className="h-6 w-6 text-quaternary md:h-8 md:w-8" />
           <input
             type="text"
             name="city"
@@ -218,10 +218,10 @@ const WeatherForm = () => {
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           />
           {isSearching && (
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-quaternary"></div>
           )}
-          <button type="submit" className="text-primary" aria-label="Search">
-            <ChevronRightIcon className="h-6 w-6 text-primary md:h-8 md:w-8" />
+          <button type="submit" className="text-quaternary" aria-label="Search">
+            <ChevronRightIcon className="h-6 w-6 text-quaternary md:h-8 md:w-8" />
           </button>
         </div>
       </form>

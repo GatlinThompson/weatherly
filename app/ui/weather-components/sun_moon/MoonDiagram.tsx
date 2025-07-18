@@ -1,5 +1,5 @@
 const MoonDiagram = () => {
-  return <div className="flex flex-grow">Moon Diagram</div>;
+  return <div className="flex flex-grow grow">Moon Diagram</div>;
 };
 
 export default MoonDiagram;

@@ -1,3 +1,14 @@
+/* Hide horizontal scrollbar and show grab cursor for HourlyWeather scroll area */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  cursor: grab;
+  cursor: -webkit-grab;
+  user-select: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
 section.content_body {
   background: var(--secondary);
   flex: 1;

@@ -1,6 +1,6 @@
 export const weatherCode = {
   0: "Unknown",
-  1000: "Clear, Sunny",
+  1000: "Sunny",
   1100: "Mostly Clear",
   1101: "Partly Cloudy",
   1102: "Mostly Cloudy",

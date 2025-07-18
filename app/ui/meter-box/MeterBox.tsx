@@ -3,25 +3,32 @@ import Image from "next/image";
 const MeterBox = ({
   children,
   title,
+  weather = false,
 }: {
   children: React.ReactNode;
-  title: string;
+  title?: string;
+  weather?: boolean;
 }) => {
-  const image_file =
-    title.toLowerCase().replace(" ", "-").replace("&", "").replace(" ", "") +
-    ".svg";
+  let image_file = "";
+  if (title) {
+    image_file =
+      title.toLowerCase().replace(" ", "-").replace("&", "").replace(" ", "") +
+      ".svg";
+  }
 
   return (
-    <div className="bg-primary rounded-xl p-3 shadow-xl w-full border-foreground border-3">
-      <div className="flex flex-row align-end gap-1 ">
-        <Image
-          src={`/${image_file}`}
-          alt={`${title} Icon`}
-          width={24}
-          height={24}
-        />
-        <p className="font-bold text-xl mb-0">{title}</p>
-      </div>
+    <div className="bg-quaternary rounded-xl p-3 shadow-2xl w-full border-foreground border-1">
+      {!weather ? (
+        <div className="flex flex-row align-end gap-1 ">
+          <Image
+            src={`/${image_file}`}
+            alt={`${title} Icon`}
+            width={24}
+            height={24}
+          />
+          <p className={`"font-bold text-xl mb-0`}>{title}</p>
+        </div>
+      ) : null}
       {children}
     </div>
   );

@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #735187;
+  --primary: #24527c;
+
   --foreground: #ffffff;
-  --secondary: #417ab4;
-  --tertiary: #f4d9ff;
+  --secondary: #4c8ac8;
+  --tertiary: #22202d;
+  /* --tertiary: #11111a;*/
+  /* --quaternary: #e6e6e6;
+  --quaternary: #212122;*/
+  --quaternary: #11111a;
   --secondary-foreground: #1e1a20;
   box-sizing: border-box;
 }
@@ -14,6 +19,7 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-tertiary: var(--tertiary);
+  --color-quaternary: var(--quaternary);
   --color-secondary-foreground: var(--secondary-foreground);
 }
 

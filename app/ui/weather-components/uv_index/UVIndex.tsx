@@ -3,6 +3,7 @@ import UVHigh from "./UVHigh";
 import UVNow from "./UVNow";
 import UVLow from "./UVLow";
 import UVHourlyGraph from "./UVHourlyGraph";
+import styles from "./UVIndex.module.css";
 
 const UVIndex = () => {
   return (
@@ -12,12 +13,12 @@ const UVIndex = () => {
           <p className="text-4xl font-bold mt-4 text-center ">
             <UVNow />
           </p>
-          <div className="flex flex-row gap-4 justify-center mt-3">
-            <p className="text-lg text-center">High: {<UVHigh />}</p>
-            <p className="text-lg text-center">Low: {<UVLow />}</p>
+          <div className="flex flex-row gap-3 justify-center mt-3">
+            <p className="text-md text-center">High: {<UVHigh />}</p>
+            <p className="text-md text-center">Low: {<UVLow />}</p>
           </div>
         </div>
-        <div className="flex-grow w-50">
+        <div className={`flex-grow w-50 ${styles.uv_graph}`}>
           <UVHourlyGraph />
         </div>
       </div>
