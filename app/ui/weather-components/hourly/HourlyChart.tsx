@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useWeather } from "../../../context/WeatherContext";
 import MeterBox from "../../meter-box/MeterBox";
 import styles from "./HourlyChart.module.css";
+import WeatherIcon from "../icons/WeatherIcon";
 
 const HourlyChart = () => {
   const { weather } = useWeather();
@@ -79,7 +80,8 @@ const HourlyChart = () => {
                       })
                     )}
                   </p>
-                  <div>{h.weatherCode}</div>
+                  <WeatherIcon code={h.weatherCode} />
+
                   <p className="text-xl font-bold text-center">
                     {h.temperature}&deg;F
                   </p>
