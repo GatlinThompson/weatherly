@@ -3,7 +3,6 @@ import styles from "./ContentBody.module.css";
 import Humidity from "../weather-components/humidity/Humidity";
 import Precipitation from "../weather-components/precipitation/Precipitation";
 import UVIndex from "../weather-components/uv_index/UVIndex";
-import SunMoon from "../weather-components/sun_moon/SunMoon";
 import HourlyWeather from "../weather-components/hourly/HourlyWeather";
 import Temperature from "../weather-components/temperature/Temperature";
 import BasicWeather from "../weather-components/basic/BasicWeather";

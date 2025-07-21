@@ -1,6 +1,5 @@
 import WeatherForm from "./WeatherForm";
 import styles from "./LandingBlock.module.css";
-import Temperature from "../weather-components/temperature/Temperature";
 
 export default function LandingBlock() {
   return (
