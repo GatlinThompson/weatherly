@@ -19,7 +19,7 @@ const WindSpeed = () => {
               Direction: <WindDirection />
             </p>
             <p className="text-md font-reg mb-0">
-              Wind Gust: <WindGust /> MPH
+              Wind Gust: <WindGust /> mph
             </p>
           </div>
         </div>

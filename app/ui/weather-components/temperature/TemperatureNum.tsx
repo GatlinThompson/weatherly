@@ -14,7 +14,7 @@ const TemperatureNum = () => {
   const maxSteps = 5; // minimum number of steps for smooth animation
 
   useEffect(() => {
-    setTemp(weather?.temperature?.now ?? 0);
+    setTemp(Math.round(weather?.temperature?.now ?? 0));
     setPreviousTemp(temp);
   }, [weather]);
 
@@ -39,7 +39,7 @@ const TemperatureNum = () => {
     };
   }, [temp, previousTemp]); // Add previousTemp to the dependency array
 
-  return <>{tempTemperature}&deg;F</>;
+  return <>{tempTemperature}</>;
 };
 
 export default TemperatureNum;

@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useWeather } from "../../../context/WeatherContext";
 import MeterBox from "../../meter-box/MeterBox";
-import styles from "./HourlyChart.module.css";
+import styles from "../hourly/HourlyChart.module.css";
 import WeatherIcon from "../icons/WeatherIcon";
 
-const HourlyChart = () => {
+const WeeklyChart = () => {
   const { weather } = useWeather();
-  const [hourly, setHourly] = useState(weather?.hourly ?? []);
+  const [hourly, setHourly] = useState(weather?.daily ?? []);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollStep = 210;
 
@@ -16,7 +16,7 @@ const HourlyChart = () => {
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
-    setHourly(weather?.hourly ?? []);
+    setHourly(weather?.daily ?? []);
   }, [weather]);
 
   const updateScrollButtons = () => {
@@ -70,18 +70,17 @@ const HourlyChart = () => {
       >
         {hourly.length ? (
           hourly.map((h) => (
-            <div className="snap-center" key={h.time}>
+            <div className="snap-center" key={h.date}>
               <MeterBox>
                 <div
                   className={`flex flex-col justify-center align-center ${styles.hourly_object} p-1 gap-1`}
                 >
                   <p className="text-lg font-bold text-center mb-2">
-                    {h.time === weather?.hourly[0].time ? (
-                      <>Now</>
+                    {h.date === weather?.daily[0].date ? (
+                      <>Today</>
                     ) : (
-                      new Date(h.time).toLocaleTimeString([], {
-                        hour: "numeric",
-                        hour12: true,
+                      new Date(h.date).toLocaleDateString([], {
+                        weekday: "long",
                       })
                     )}
                   </p>
@@ -121,4 +120,4 @@ const HourlyChart = () => {
   );
 };
 
-export default HourlyChart;
+export default WeeklyChart;

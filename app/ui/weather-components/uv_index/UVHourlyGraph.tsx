@@ -93,7 +93,7 @@ const UVHourlyGraph = () => {
             }
             return "";
           },
-          color: "#fff",
+          color: "black",
           font: { size: 12 },
           maxRotation: 0,
           minRotation: 0,

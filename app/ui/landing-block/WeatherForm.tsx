@@ -35,7 +35,7 @@ const WeatherForm = () => {
           throw new Error("No lat/lon found");
         const geoData = geoDataArr[0];
         await getWeather({
-          name: "Salt Lake City, Utah, US",
+          name: "Salt Lake City",
           country: geoData.country ?? "",
           state: geoData.state ?? "",
           lat: geoData.lat,
@@ -121,7 +121,11 @@ const WeatherForm = () => {
         "/api/weather?lat=" +
           encodeURIComponent(inputCity.lat ?? "") +
           "&lon=" +
-          encodeURIComponent(inputCity.lon ?? "")
+          encodeURIComponent(inputCity.lon ?? "") +
+          "&city=" +
+          encodeURIComponent(
+            `${inputCity.name}, ${inputCity.state ?? ""}, ${inputCity.country}`
+          )
       );
 
       if (!response.ok) {
@@ -200,15 +204,15 @@ const WeatherForm = () => {
         onSubmit={handleSubmit}
         className="flex flex-row gap-4 w-full lg:w-1/2 md:w-3/4 mx-auto"
       >
-        <div className="flex flex-row gap-2 bg-foreground rounded-xl text-quaternary p-4 shadow-lg flex-1 w-full">
-          <MapPinIcon className="h-6 w-6 text-quaternary md:h-8 md:w-8" />
+        <div className="flex flex-row gap-2 bg-primary rounded-xl text-quaternary p-4 shadow-lg flex-1 w-full">
+          <MapPinIcon className="h-6 w-6 text-foreground md:h-8 md:w-8" />
           <input
             type="text"
             name="city"
             placeholder="City..."
             aria-label="City"
             value={city}
-            className="text-xl outline-none flex-grow md:text-2xl bg-transparent"
+            className="text-xl outline-none flex-grow md:text-2xl bg-transparent text-foreground"
             onChange={handleInputChange}
             onFocus={() =>
               city.length >= 2 &&
@@ -221,7 +225,7 @@ const WeatherForm = () => {
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-quaternary"></div>
           )}
           <button type="submit" className="text-quaternary" aria-label="Search">
-            <ChevronRightIcon className="h-6 w-6 text-quaternary md:h-8 md:w-8" />
+            <ChevronRightIcon className="h-6 w-6 text-foreground md:h-8 md:w-8" />
           </button>
         </div>
       </form>

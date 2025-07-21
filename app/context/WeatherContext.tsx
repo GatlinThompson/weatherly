@@ -25,8 +25,6 @@ export type WeatherData = {
     set: Date;
   };
   moon: {
-    phase: string;
-    illumination: number;
     rise: Date;
     set: Date;
   };
@@ -36,6 +34,8 @@ export type WeatherData = {
   cloudCover: number;
   weatherCode: number;
   hourly: { time: string; temperature: number; weatherCode: number }[];
+  city: string;
+  daily: { date: string; temperature: number; weatherCode: number }[];
 };
 
 interface WeatherContextType {

@@ -5,6 +5,8 @@ export async function GET(req: Request): Promise<Response> {
     const { searchParams } = new URL(req.url);
     const lat = searchParams.get("lat");
     const lon = searchParams.get("lon");
+    const city = searchParams.get("city");
+    console.log(city);
 
     // Validate required parameters
     if (!lat || !lon) {
@@ -66,23 +68,6 @@ export async function GET(req: Request): Promise<Response> {
         };
       });
 
-    // Get moon data
-    const timestamp = Math.floor(Date.now() / 1000);
-
-    const moonReponse = await fetch(
-      `https://api.farmsense.net/v1/moonphases/?d=${timestamp}`
-    );
-
-    if (!moonReponse.ok) {
-      const errorData = await moonReponse.json().catch(() => ({}));
-      return new Response(JSON.stringify(errorData), {
-        status: moonReponse.status,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    const moonData = await moonReponse.json();
-
     const dailyWeather = forecastData.timelines.daily[0].values;
 
     const todayWeather = forecastData.timelines.minutely[0].values;
@@ -111,8 +96,6 @@ export async function GET(req: Request): Promise<Response> {
         set: dailyWeather.sunsetTime,
       },
       moon: {
-        phase: moonData[0].Phase,
-        illumination: moonData[0].Illumination,
         rise: dailyWeather.moonriseTime,
         set: dailyWeather.moonsetTime,
       },
@@ -121,6 +104,7 @@ export async function GET(req: Request): Promise<Response> {
       precipitation: todayWeather.precipitationProbability,
       cloudCover: todayWeather.cloudCover,
       weatherCode: todayWeather.weatherCode,
+      city: city,
       hourly: forecastData.timelines.hourly
         .map(
           (item: {
@@ -135,6 +119,20 @@ export async function GET(req: Request): Promise<Response> {
           }
         )
         .slice(0, 24),
+      daily: forecastData.timelines.daily
+        .map(
+          (item: {
+            time: string;
+            values: { temperatureAvg: number; weatherCodeMax: number };
+          }) => {
+            return {
+              date: item.time,
+              temperature: item.values.temperatureAvg,
+              weatherCode: item.values.weatherCodeMax,
+            };
+          }
+        )
+        .slice(0, 7),
     };
 
     return new Response(

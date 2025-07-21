@@ -1,0 +1,15 @@
+div.circle {
+  border-radius: 100%;
+}
+
+.humidity {
+  background-color: #d6e4fa;
+}
+
+.wind {
+  background-color: #beefdf;
+}
+
+.precipitation {
+  background-color: #dcf7ff;
+}
