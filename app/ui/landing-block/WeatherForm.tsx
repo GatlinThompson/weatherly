@@ -30,7 +30,6 @@ const WeatherForm = () => {
         if (!geoRes.ok) throw new Error("Failed to get lat/lon");
         const geoDataArr = await geoRes.json();
 
-        console.log(geoDataArr);
         if (!geoDataArr || geoDataArr.length === 0)
           throw new Error("No lat/lon found");
         const geoData = geoDataArr[0];
@@ -75,8 +74,6 @@ const WeatherForm = () => {
       }
 
       const data = await response.json();
-
-      console.log(data);
 
       const cityOptions: CityOption[] = data.map(
         (item: {
@@ -140,13 +137,9 @@ const WeatherForm = () => {
         return;
       }
 
-      console.log(weatherData);
-
       if (!weatherData) {
         throw new Error("Invalid weather data received");
       }
-
-      console.log(weatherData.current);
 
       setWeather(weatherData.current);
     } catch (error) {
