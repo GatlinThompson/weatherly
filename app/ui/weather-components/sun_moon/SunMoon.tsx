@@ -1,9 +1,8 @@
 import MeterBox from "../../meter-box/MeterBox";
 import SunRiseText from "./SunRiseText";
 import SunSetText from "./SunSetText";
-import MoonPhaseText from "./MoonPhaseText";
+
 import MoonRiseText from "./MoonRiseText";
-import MoonDiagram from "./MoonDiagram";
 
 const SunMoon = () => {
   return (
@@ -20,12 +19,7 @@ const SunMoon = () => {
           <p className="text-md">
             Next Moonrise: <MoonRiseText />
           </p>
-          <p className="text-md">
-            Phase: <MoonPhaseText />
-          </p>
         </div>
-
-        <MoonDiagram />
       </div>
     </MeterBox>
   );
