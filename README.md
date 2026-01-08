@@ -9,9 +9,6 @@ A simple and responsive weather forecast application built with [your stack, e.g
 - 🌍 Search by city name (geocoding support)
 - 📱 Responsive design for mobile and desktop
 
-## 🚀 Demo
-
-Coming Soon
 
 ## ⚙️ Tech Stack
 
